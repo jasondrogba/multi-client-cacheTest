@@ -111,11 +111,27 @@ func ReadAlluxioHandler(c *gin.Context) {
 }
 
 func StartTrainingHandler(c *gin.Context) {
-	instanceMap := readyForEc2.GetInstanceMap()
-	policy := c.Query("policy")
-	//重新启动集群
-	fmt.Println("start Alluxio:", policy)
-	startTest.StartTest(instanceMap["Ec2Cluster-default-masters-0"], policy)
-	fmt.Println("LOAD ALLUXIO")
+	var workerListInfo userMasterInfo.WorkerInfoList
+	err := c.BindJSON(&workerListInfo)
+	if err != nil {
+		log.Println("JSON err:", err)
+		c.JSON(400, gin.H{"error": "解析JSON数据失败"})
+		return
+	}
+	select {
+	case handleLock.GetTrainRunning() <- struct{}{}: // 尝试获取互斥锁
+		// 成功获取互斥锁，执行处理函数
+		fmt.Println("后台处理开始")
+		go startTest.StartTraining(workerListInfo)
+
+		c.JSON(200, gin.H{
+			"message": "开始训练",
+		})
+	default:
+		// 未获取到互斥锁，处理函数正在执行中，直接返回错误响应
+		c.JSON(500, gin.H{
+			"message": "后台处理中，还没有训练结束",
+		})
+	}
 
 }

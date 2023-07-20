@@ -10,5 +10,6 @@ type WorkerInfo struct {
 }
 
 type WorkerInfoList struct {
+	Policy         string       `json:"policy"`
 	WorkerInfoList []WorkerInfo `json:"worker_info_list"`
 }
