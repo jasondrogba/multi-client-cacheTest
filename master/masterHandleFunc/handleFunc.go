@@ -135,3 +135,14 @@ func StartTrainingHandler(c *gin.Context) {
 	}
 
 }
+
+func GetResultHandler(c *gin.Context) {
+	//remote := []float64{0.1, 0.2, 0.3}
+	//readUfs := []float64{0.1, 0.2, 0.3}
+	remote, readUfs := startTest.GetResult()
+	c.JSON(200, gin.H{
+		"message": "获取结果",
+		"remote":  remote,
+		"readUfs": readUfs,
+	})
+}

@@ -3,9 +3,12 @@ package startTest
 import (
 	"jasondrogba/multi-client-cacheTest/master/handleLock"
 	"jasondrogba/multi-client-cacheTest/master/loadAlluxio"
+	"jasondrogba/multi-client-cacheTest/master/metrics"
 	"jasondrogba/multi-client-cacheTest/master/readyForEc2"
 	"jasondrogba/multi-client-cacheTest/master/userMasterInfo"
 )
+
+var totalReadUfs, totalRemote []float64
 
 func StartTraining(workerListInfo userMasterInfo.WorkerInfoList) {
 	instanceMap := readyForEc2.GetInstanceMap()
@@ -21,9 +24,17 @@ func StartTraining(workerListInfo userMasterInfo.WorkerInfoList) {
 	handleLock.GetReadRunning() <- struct{}{}
 	loadAlluxio.TotalRead(workerListInfo)
 	handleLock.GetReadRunning() <- struct{}{}
+	tmpReadUfs, tmpRemote := metrics.BackProcess()
+	totalReadUfs = append(totalReadUfs, tmpReadUfs)
+	totalRemote = append(totalRemote, tmpRemote)
 
 	//释放
 	<-handleLock.GetReadRunning()
 	<-handleLock.GetLoadRunning()
+	<-handleLock.GetTrainRunning()
 
+}
+
+func GetResult() ([]float64, []float64) {
+	return totalReadUfs, totalRemote
 }
