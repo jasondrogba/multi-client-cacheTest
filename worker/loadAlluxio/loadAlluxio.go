@@ -22,7 +22,6 @@ func LoadAlluxio(fileCount int) {
 }
 
 func multiLoad(file int) {
-	wg.Done()
 	var cmd string
 	if runtime.GOOS == "linux" {
 		fmt.Println("Detected Linux system")
@@ -42,4 +41,6 @@ func multiLoad(file int) {
 		os.Exit(1)
 	}
 	fmt.Print(string(output))
+	wg.Done()
+
 }

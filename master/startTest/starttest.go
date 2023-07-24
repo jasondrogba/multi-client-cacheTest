@@ -23,8 +23,8 @@ const (
 	//动态切换cache eviction policy
 	cacheCMD = "sudo su alluxio -c \"cd /opt/alluxio && ./bin/alluxio fsadmin updateConf alluxio.worker.block.annotator.dynamic.sort=REPLICA\""
 	LRUCMD   = "sudo su alluxio -c \"cd /opt/alluxio && ./bin/alluxio fsadmin updateConf alluxio.worker.block.annotator.dynamic.sort=LRU\""
-
-	port = "22"
+	LRFUCMD  = "sudo su alluxio -c \"cd /opt/alluxio && ./bin/alluxio fsadmin updateConf alluxio.worker.block.annotator.dynamic.sort=LRFU\""
+	port     = "22"
 )
 
 func StartTest(hostname string, policy string) {
@@ -39,12 +39,18 @@ func StartTest(hostname string, policy string) {
 			runCMD(stopCMD)
 			runCMD(formatCMD)
 			runCMD(startCMD)
-		} else {
+		} else if policy == "REPLICA" {
 			runCMD(freeCMD)
 			runCMD(stopCMD)
 			runCMD(formatCMD)
 			runCMD(startCMD)
 			runCMD(cacheCMD)
+		} else {
+			runCMD(freeCMD)
+			runCMD(stopCMD)
+			runCMD(formatCMD)
+			runCMD(startCMD)
+			runCMD(LRFUCMD)
 		}
 
 	} else if osDetect() == "darwin" {
@@ -55,12 +61,18 @@ func StartTest(hostname string, policy string) {
 			multiSSH(hostname, port, config, stopCMD)
 			multiSSH(hostname, port, config, formatCMD)
 			multiSSH(hostname, port, config, startCMD)
-		} else {
+		} else if policy == "REPLICA" {
 			multiSSH(hostname, port, config, freeCMD)
 			multiSSH(hostname, port, config, stopCMD)
 			multiSSH(hostname, port, config, formatCMD)
 			multiSSH(hostname, port, config, startCMD)
 			multiSSH(hostname, port, config, cacheCMD)
+		} else {
+			multiSSH(hostname, port, config, freeCMD)
+			multiSSH(hostname, port, config, stopCMD)
+			multiSSH(hostname, port, config, formatCMD)
+			multiSSH(hostname, port, config, startCMD)
+			multiSSH(hostname, port, config, LRFUCMD)
 		}
 
 	} else {

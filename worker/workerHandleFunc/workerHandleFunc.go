@@ -22,7 +22,7 @@ func LoadAlluxioHandler(c *gin.Context) {
 	case workerHandleLock.GetLoadRunning() <- struct{}{}: // 尝试获取互斥锁
 		// 成功获取互斥锁，执行处理函数
 		fmt.Println("后台处理开始")
-		go loadAlluxio.LoadAlluxio(fileCount)
+		loadAlluxio.LoadAlluxio(fileCount)
 		c.JSON(200, gin.H{
 			"message": "在Alluxio worker中预热数据",
 		})

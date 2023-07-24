@@ -21,7 +21,7 @@ func main() {
 	for k, v := range instanceMap {
 		wg.Add(1)
 		if k == "Ec2Cluster-default-masters-0" {
-			go sendCMD(masterDir, v)
+			//go sendCMD(masterDir, v)
 			continue
 		}
 		go sendCMD(workerDir, v)

@@ -83,17 +83,36 @@ func sendReadToWorker(workerIP string, masterIp string, count string,
 		log.Println("http.Get err: ", err)
 	}
 	client := &http.Client{}
+	retryCount := 3
+	for retryCount > 0 {
+		readResp, err := client.Do(readReq)
+		if err != nil {
+			log.Println("http.Get err: ", err)
+			retryCount--
+			continue
+		}
+		if readResp.StatusCode != http.StatusOK {
+			log.Print("read失败，状态码：", readResp.StatusCode)
+			retryCount--
+			continue
+		}
+		//err = readResp.Body.Close()
+		//if err != nil {
+		//	log.Println("readResp.Body.Close() err: ", err)
+		//	return err
+		//}
+		break
+	}
+	//readResp, err := client.Do(readReq)
+	//
+	//if err != nil {
+	//	log.Println("http.Get err: ", err)
+	//	return err
+	//}
 
-	readResp, err := client.Do(readReq)
-	
-	if err != nil {
-		log.Println("http.Get err: ", err)
-		return err
-	}
-	defer readResp.Body.Close()
-	if readResp.StatusCode != http.StatusOK {
-		log.Print("read失败，状态码：", readResp.StatusCode)
-		return err
-	}
+	//if readResp.StatusCode != http.StatusOK {
+	//	log.Print("read失败，状态码：", readResp.StatusCode)
+	//	return err
+	//}
 	return nil
 }
