@@ -1,0 +1,30 @@
+scrape_configs:
+  - job_name: "alluxio master"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-34-238-83-148.compute-1.amazonaws.com:19999' ]
+  - job_name: "alluxio worker-0"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-54-87-186-232.compute-1.amazonaws.com:30000' ]
+  - job_name: "alluxio worker-1"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-54-175-202-191.compute-1.amazonaws.com:30000' ]
+  - job_name: "alluxio worker-2"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-50-16-51-171.compute-1.amazonaws.com:30000' ]
+  - job_name: "alluxio worker-3"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-44-201-146-174.compute-1.amazonaws.com:30000' ]
+  - job_name: "alluxio job master"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-34-238-83-148.compute-1.amazonaws.com:20002' ]
+
+  - job_name: "alluxio job worker-0"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ 'ec2-54-87-186-232.compute-1.amazonaws.com:30003' ]

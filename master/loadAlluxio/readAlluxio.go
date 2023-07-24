@@ -83,7 +83,9 @@ func sendReadToWorker(workerIP string, masterIp string, count string,
 		log.Println("http.Get err: ", err)
 	}
 	client := &http.Client{}
+
 	readResp, err := client.Do(readReq)
+	
 	if err != nil {
 		log.Println("http.Get err: ", err)
 		return err

@@ -8,6 +8,7 @@ import (
 	"jasondrogba/multi-client-cacheTest/worker/workerHandleLock"
 	"log"
 	"math/rand"
+	"os"
 )
 
 func ReadAlluxio(masterIP string, count int, readRatio int, hotFile int, totalFile int) {
@@ -34,7 +35,13 @@ func ReadAlluxio(masterIP string, count int, readRatio int, hotFile int, totalFi
 }
 
 func multiReadRand(hostname string, readRatio int, hotFile int, totalFile int) {
-	fs := alluxio.NewClient(hostname, 39999, 0)
+	hostName, err := os.Hostname()
+	if err != nil {
+		fmt.Println("Failed to get hostname:", err)
+		return
+	}
+	//fmt.Println("hostname:", hostName)
+	fs := alluxio.NewClient(hostName, 39999, 0)
 	index := rand.Int()
 	//if i <= count/2 {
 	//	index = index % 2600

@@ -1,0 +1,25 @@
+scrape_configs:
+  # 添加 Alluxio 的配置
+  - job_name: "alluxio master"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ '<LEADING_MASTER_HOSTNAME>:<MASTER_WEB_PORT>' ] # 默认端口号是19999
+  - job_name: "alluxio worker"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ '<WORKER_HOSTNAME>:<WORKER_WEB_PORT>' ] # 默认端口号是30000
+
+  - job_name: "alluxio job master"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ '<LEADING_JOB_MASTER_HOSTNAME>:<JOB_MASTER_WEB_PORT>' ] # 默认端口号是20002
+
+  - job_name: "alluxio job worker"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ '<JOB_WORKER_HOSTNAME>:<JOB_WORKER_WEB_PORT>' ] # 默认端口号是30003
+
+  - job_name: "alluxio standalone fuse"
+    metrics_path: '/metrics/prometheus/'
+    static_configs:
+      - targets: [ '<FUSE_WEB_HOSTNAME>:<FUSE_WEB_PORT>' ] # 默认端口号是49999

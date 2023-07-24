@@ -18,27 +18,27 @@ func main() {
 	//获得所有的ec2实例
 	instanceMap := ec2test.Getec2Instance()
 	//将master生成的程序，和worker生成的程序分别发送到ec2实例上
-	//for k, v := range instanceMap {
-	//	wg.Add(1)
-	//	if k == "Ec2Cluster-default-masters-0" {
-	//		go sendCMD(masterDir, v)
-	//		continue
-	//	}
-	//	go sendCMD(workerDir, v)
-	//}
-	////time.Sleep(time.Second * 1)
-	//wg.Wait()
-
-	//启动所有的ec2实例上的master和worker
 	for k, v := range instanceMap {
 		wg.Add(1)
 		if k == "Ec2Cluster-default-masters-0" {
-			go runCMD("master-server", v)
+			go sendCMD(masterDir, v)
 			continue
 		}
-		go runCMD("worker-server", v)
+		go sendCMD(workerDir, v)
 	}
+	//time.Sleep(time.Second * 1)
 	wg.Wait()
+
+	//启动所有的ec2实例上的master和worker
+	//for k, v := range instanceMap {
+	//	wg.Add(1)
+	//	if k == "Ec2Cluster-default-masters-0" {
+	//		go runCMD("master-server", v)
+	//		continue
+	//	}
+	//	go runCMD("worker-server", v)
+	//}
+	//wg.Wait()
 }
 
 func sendCMD(Dir string, hostname string) {
