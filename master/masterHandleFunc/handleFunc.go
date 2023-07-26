@@ -152,11 +152,10 @@ func GetMapResultHandler(c *gin.Context) {
 	//remote := []float64{0.1, 0.2, 0.3}
 	//readUfs := []float64{0.1, 0.2, 0.3}
 
-	remote, readUfs := metrics.GetInfo()
+	infoList := metrics.GetInfo()
 	c.JSON(200, gin.H{
 		"message": "获取结果",
-		"remote":  remote,
-		"readUfs": readUfs,
+		"result":  infoList,
 	})
 }
 
@@ -191,4 +190,44 @@ func SetPolicyHandler(c *gin.Context) {
 		})
 	}
 
+}
+
+func CheckStatusHandler(c *gin.Context) {
+	var Read, Train, Load, Policy string
+	if len(handleLock.GetReadRunning()) == cap(handleLock.GetReadRunning()) {
+		//log.Println("ReadRunning is full")
+		Read = "full"
+	} else {
+		//log.Println("ReadRunning is not full")
+		Read = "empty"
+	}
+	if len(handleLock.GetTrainRunning()) == cap(handleLock.GetTrainRunning()) {
+		//log.Println("TrainRunning is full")
+		Train = "full"
+	} else {
+		//log.Println("TrainRunning is not full")
+		Train = "empty"
+	}
+	if len(handleLock.GetLoadRunning()) == cap(handleLock.GetLoadRunning()) {
+		//log.Println("LoadRunning is full")
+		Load = "full"
+	} else {
+		//log.Println("LoadRunning is not full")
+		Load = "empty"
+	}
+	if len(handleLock.GetPolicyRunning()) == cap(handleLock.GetPolicyRunning()) {
+		//log.Println("PolicyRunning is full")
+		Policy = "full"
+	} else {
+		//log.Println("PolicyRunning is not full")
+		Policy = "empty"
+	}
+
+	c.JSON(200, gin.H{
+		"message": "获取结果",
+		"read":    Read,
+		"train":   Train,
+		"load":    Load,
+		"policy":  Policy,
+	})
 }

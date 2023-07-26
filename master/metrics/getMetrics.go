@@ -16,7 +16,8 @@ var totalReadUfs float64
 var totalRemote float64
 var mutex sync.Mutex
 
-var infoReadUfs, infoRemote map[string]float64
+var infoUfsCount, infoRemoteCount int
+var infoList = make([]infoStruct, 0)
 
 const ReadRemote = "BytesReadRemote"
 const ReadUFS = "BytesReadPerUfs"
@@ -174,15 +175,19 @@ func getReadUfsFromWorker(hostname string) {
 
 }
 
-func GetInfo() (map[string]float64, map[string]float64) {
-	return infoReadUfs, infoRemote
+func GetInfo() []infoStruct {
+	return infoList
 }
 
-func SetInfoUfs(tmpInfo string, tmpUfs float64) {
-	infoReadUfs[tmpInfo] = tmpUfs
+func SetInfo(tmpInfo string, tmpUfs float64, tmpRemote float64) {
 
-}
-func SetInfoRemote(tmpInfo string, tmpRemote float64) {
-	infoRemote[tmpInfo] = tmpRemote
+	tempStruct := infoStruct{
+		TestId: infoUfsCount,
+		Info:   tmpInfo,
+		Ufs:    tmpUfs,
+		Remote: tmpRemote,
+	}
+	infoList = append(infoList, tempStruct)
+	infoUfsCount++
 
 }

@@ -1,0 +1,37 @@
+{
+  "policy":"REPLICA",
+  "worker_info_list": [
+    {
+      "worker_id":"0",
+      "read_ratio":"20",
+      "load_file":"39",
+      "hot_file":"40",
+      "total_file":"100",
+      "count":"200"
+    },
+    {
+      "worker_id":"1",
+      "read_ratio":"20",
+      "load_file":"30",
+      "hot_file":"40",
+      "total_file":"100",
+      "count":"200"
+    },
+    {
+      "worker_id":"2",
+      "read_ratio":"20",
+      "load_file":"15",
+      "hot_file":"40",
+      "total_file":"100",
+      "count":"200"
+    },
+    {
+      "worker_id":"3",
+      "read_ratio":"20",
+      "load_file":"0",
+      "hot_file":"40",
+      "total_file":"100",
+      "count":"200"
+    }
+  ]
+}

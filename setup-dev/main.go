@@ -21,10 +21,10 @@ func main() {
 	for k, v := range instanceMap {
 		wg.Add(1)
 		if k == "Ec2Cluster-default-masters-0" {
-			//go sendCMD(masterDir, v)
+			go sendCMD(masterDir, v)
 			continue
 		}
-		go sendCMD(workerDir, v)
+		//go sendCMD(workerDir, v)
 	}
 	//time.Sleep(time.Second * 1)
 	wg.Wait()
@@ -58,7 +58,20 @@ func runCMD(Dir string, hostname string) {
 	defer wg.Done()
 	//Dir := workerDir
 
-	cmd := exec.Command("bash", "-c", fmt.Sprintf("ssh -i ~/.ssh/id_rsa %s@%s ./%s", ec2Username, hostname, Dir))
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("ssh -i ~/.ssh/id_rsa %s@%s nohup ./%s > worker.log &", ec2Username, hostname, Dir))
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("err: ", err)
+	}
+	fmt.Println("run success", hostname)
+
+}
+
+func stopCMD(Dir string, hostname string) {
+	defer wg.Done()
+	//Dir := workerDir
+
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("ssh -i ~/.ssh/id_rsa %s@%s kill $(lsof -it 8888)", ec2Username, hostname))
 	err := cmd.Run()
 	if err != nil {
 		fmt.Println("err: ", err)

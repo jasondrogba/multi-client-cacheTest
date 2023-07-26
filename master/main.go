@@ -29,5 +29,6 @@ func main() {
 	r.GET("/getResult", masterHandleFunc.GetResultHandler)
 	r.GET("/getMapResult", masterHandleFunc.GetMapResultHandler)
 	r.GET("/setPolicy", masterHandleFunc.SetPolicyHandler)
+	r.GET("/checkStatus", masterHandleFunc.CheckStatusHandler)
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 }

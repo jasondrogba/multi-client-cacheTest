@@ -9,12 +9,14 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"time"
 )
 
 func ReadAlluxio(masterIP string, count int, readRatio int, hotFile int, totalFile int) {
 	//TODO():将循环改为并发
 	//hostname := instanceMap["Ec2Cluster-default-masters-0"]
-	rand.Seed(int64(12345))
+	//rand.Seed(int64(12345))
+	rand.NewSource(time.Now().UnixNano())
 	for i := 1; i <= count; i++ {
 
 		multiReadRand(masterIP, readRatio, hotFile, totalFile)

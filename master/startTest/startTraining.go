@@ -3,7 +3,6 @@ package startTest
 import (
 	"jasondrogba/multi-client-cacheTest/master/handleLock"
 	"jasondrogba/multi-client-cacheTest/master/loadAlluxio"
-	"jasondrogba/multi-client-cacheTest/master/metrics"
 	"jasondrogba/multi-client-cacheTest/master/readyForEc2"
 	"jasondrogba/multi-client-cacheTest/master/userMasterInfo"
 )
@@ -25,18 +24,17 @@ func StartTraining(workerListInfo userMasterInfo.WorkerInfoList) {
 	loadAlluxio.TotalRead(workerListInfo)
 	handleLock.GetReadRunning() <- struct{}{}
 
-	tmpReadUfs, tmpRemote := metrics.BackProcess()
-	totalReadUfs = append(totalReadUfs, tmpReadUfs)
-	totalRemote = append(totalRemote, tmpRemote)
-	tmpInfo := "StartTraining Policy:" + workerListInfo.Policy +
-		"-Ratio:" + workerListInfo.WorkerInfoList[0].ReadRatio +
-		"-LoadFile:" + workerListInfo.WorkerInfoList[0].LoadFile +
-		"-HotFile:" + workerListInfo.WorkerInfoList[0].HotFile +
-		"-TotalFile:" + workerListInfo.WorkerInfoList[0].TotalFile +
-		"-Count:" + workerListInfo.WorkerInfoList[0].Count
-
-	metrics.SetInfoUfs(tmpInfo, tmpReadUfs)
-	metrics.SetInfoRemote(tmpInfo, tmpRemote)
+	//tmpReadUfs, tmpRemote := metrics.BackProcess()
+	//totalReadUfs = append(totalReadUfs, tmpReadUfs)
+	//totalRemote = append(totalRemote, tmpRemote)
+	//tmpInfo := "StartTraining Policy:" + workerListInfo.Policy +
+	//	"-Ratio:" + workerListInfo.WorkerInfoList[0].ReadRatio +
+	//	"-LoadFile:" + workerListInfo.WorkerInfoList[0].LoadFile +
+	//	"-HotFile:" + workerListInfo.WorkerInfoList[0].HotFile +
+	//	"-TotalFile:" + workerListInfo.WorkerInfoList[0].TotalFile +
+	//	"-Count:" + workerListInfo.WorkerInfoList[0].Count
+	//
+	//metrics.SetInfo(tmpInfo, tmpReadUfs, tmpRemote)
 	//释放
 	<-handleLock.GetReadRunning()
 	<-handleLock.GetLoadRunning()
