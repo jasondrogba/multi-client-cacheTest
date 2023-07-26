@@ -155,15 +155,38 @@ func multiSSH(instance string, port string, config *ssh.ClientConfig, cmd string
 
 }
 
-func runCMD(cmd string) {
+func runCMD(cmd string) error {
 	runcmd := exec.Command("bash", "-c", cmd)
 	output, err := runcmd.Output()
 	if err != nil {
 		fmt.Println("Failed to run command:", err)
+		return err
 	}
 	fmt.Println(string(output))
+	return nil
 }
 
 func SwitchLRU() {
 	runCMD(LRUCMD)
+}
+
+func SetPolicy(policy string) error {
+	if policy == "LRU" {
+		err := runCMD(LRUCMD)
+		if err != nil {
+			return err
+		}
+	} else if policy == "REPLICA" {
+		err := runCMD(cacheCMD)
+		if err != nil {
+			return err
+		}
+	} else {
+		err := runCMD(LRFUCMD)
+		if err != nil {
+			return err
+		}
+	}
+	<-handleLock.GetPolicyRunning()
+	return nil
 }

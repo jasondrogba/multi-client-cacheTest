@@ -24,10 +24,19 @@ func StartTraining(workerListInfo userMasterInfo.WorkerInfoList) {
 	handleLock.GetReadRunning() <- struct{}{}
 	loadAlluxio.TotalRead(workerListInfo)
 	handleLock.GetReadRunning() <- struct{}{}
+
 	tmpReadUfs, tmpRemote := metrics.BackProcess()
 	totalReadUfs = append(totalReadUfs, tmpReadUfs)
 	totalRemote = append(totalRemote, tmpRemote)
+	tmpInfo := "StartTraining Policy:" + workerListInfo.Policy +
+		"-Ratio:" + workerListInfo.WorkerInfoList[0].ReadRatio +
+		"-LoadFile:" + workerListInfo.WorkerInfoList[0].LoadFile +
+		"-HotFile:" + workerListInfo.WorkerInfoList[0].HotFile +
+		"-TotalFile:" + workerListInfo.WorkerInfoList[0].TotalFile +
+		"-Count:" + workerListInfo.WorkerInfoList[0].Count
 
+	metrics.SetInfoUfs(tmpInfo, tmpReadUfs)
+	metrics.SetInfoRemote(tmpInfo, tmpRemote)
 	//释放
 	<-handleLock.GetReadRunning()
 	<-handleLock.GetLoadRunning()

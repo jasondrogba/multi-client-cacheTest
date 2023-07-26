@@ -16,6 +16,8 @@ var totalReadUfs float64
 var totalRemote float64
 var mutex sync.Mutex
 
+var infoReadUfs, infoRemote map[string]float64
+
 const ReadRemote = "BytesReadRemote"
 const ReadUFS = "BytesReadPerUfs"
 
@@ -26,12 +28,13 @@ func BackProcess() (float64, float64) {
 	instanceMap := ec2test.Getec2Instance()
 	ticker := time.NewTicker(time.Second * 5)
 	defer ticker.Stop()
-	previousReadUfs, previousRemote := GetMetrics(instanceMap)
+	previousReadUfs, previousRemote := getMetrics(instanceMap)
 	totalRemote, totalReadUfs = 0, 0
 
 	for range ticker.C {
-		currentReadUfs, currentRemote := GetMetrics(instanceMap)
+		currentReadUfs, currentRemote := getMetrics(instanceMap)
 		if currentRemote == 0 && currentReadUfs == 0 {
+
 			continue
 		}
 		if currentReadUfs == previousReadUfs && currentRemote == previousRemote {
@@ -55,7 +58,7 @@ func BackProcess() (float64, float64) {
 
 }
 
-func GetMetrics(instanceMap map[string]string) (float64, float64) {
+func getMetrics(instanceMap map[string]string) (float64, float64) {
 	//instanceMap := ec2test.Getec2Instance()
 	//master := instanceMap["Ec2Cluster-default-masters-0"]
 	//worker0 := instanceMap["Ec2Cluster-default-workers-0"]
@@ -67,21 +70,21 @@ func GetMetrics(instanceMap map[string]string) (float64, float64) {
 	for key, value := range instanceMap {
 		if strings.Contains(key, "workers") {
 			wg.Add(1)
-			go GetReadUfsFromWorker(value)
+			go getReadUfsFromWorker(value)
 		}
 	}
 	wg.Wait()
 	fmt.Println("total ReadFromUfs: ", totalReadUfs/1024/1024/1024, "GB")
 	fmt.Println("total ReadFromRemote: ", totalRemote/1024/1024/1024, "GB")
 	return totalReadUfs / 1024 / 1024 / 1024, totalRemote / 1024 / 1024 / 1024
-	//GetReadUfsFromWorker(worker0)
-	//GetReadUfsFromWorker(worker1)
-	//GetReadUfsFromWorker(worker2)
-	//GetReadUfsFromWorker(worker3)
+	//getReadUfsFromWorker(worker0)
+	//getReadUfsFromWorker(worker1)
+	//getReadUfsFromWorker(worker2)
+	//getReadUfsFromWorker(worker3)
 
 }
 
-func GetReadUfsFromWorker(hostname string) {
+func getReadUfsFromWorker(hostname string) {
 	// get prometheus metrics from master
 	defer wg.Done()
 	url := "http://" + hostname + ":30000/metrics/json"
@@ -168,5 +171,18 @@ func GetReadUfsFromWorker(hostname string) {
 	totalReadUfs += valueUfsFloat
 	totalRemote += valueRemoteFloat
 	mutex.Unlock()
+
+}
+
+func GetInfo() (map[string]float64, map[string]float64) {
+	return infoReadUfs, infoRemote
+}
+
+func SetInfoUfs(tmpInfo string, tmpUfs float64) {
+	infoReadUfs[tmpInfo] = tmpUfs
+
+}
+func SetInfoRemote(tmpInfo string, tmpRemote float64) {
+	infoRemote[tmpInfo] = tmpRemote
 
 }

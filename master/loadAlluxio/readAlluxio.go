@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"jasondrogba/multi-client-cacheTest/master/handleLock"
+	"jasondrogba/multi-client-cacheTest/master/metrics"
 	"jasondrogba/multi-client-cacheTest/master/readyForEc2"
 	"jasondrogba/multi-client-cacheTest/master/userMasterInfo"
 	"log"
@@ -14,6 +15,7 @@ import (
 )
 
 var readwg sync.WaitGroup
+var infoReadUfs, infoRemote map[string]float64
 
 func TotalRead(workerListInfo userMasterInfo.WorkerInfoList) {
 	instanceMap := readyForEc2.GetInstanceMap()
@@ -26,6 +28,19 @@ func TotalRead(workerListInfo userMasterInfo.WorkerInfoList) {
 		go multiRead(w.WorkerId, MasterIp, w.Count, w.HotFile, w.TotalFile, w.ReadRatio)
 	}
 	readwg.Wait()
+	tmpReadUfs, tmpRemote := metrics.BackProcess()
+	//totalReadUfs = append(totalReadUfs, tmpReadUfs)
+	//totalRemote = append(totalRemote, tmpRemote)
+	tmpInfo := "Read Policy:" + workerListInfo.Policy +
+		"-Ratio:" + workerListInfo.WorkerInfoList[0].ReadRatio +
+		"-LoadFile:" + workerListInfo.WorkerInfoList[0].LoadFile +
+		"-HotFile:" + workerListInfo.WorkerInfoList[0].HotFile +
+		"-TotalFile:" + workerListInfo.WorkerInfoList[0].TotalFile +
+		"-Count:" + workerListInfo.WorkerInfoList[0].Count
+
+	metrics.SetInfoUfs(tmpInfo, tmpReadUfs)
+	metrics.SetInfoRemote(tmpInfo, tmpRemote)
+
 	<-handleLock.GetReadRunning()
 }
 

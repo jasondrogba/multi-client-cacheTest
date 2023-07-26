@@ -6,6 +6,7 @@ import (
 	"jasondrogba/multi-client-cacheTest/master/ec2test"
 	"jasondrogba/multi-client-cacheTest/master/handleLock"
 	"jasondrogba/multi-client-cacheTest/master/loadAlluxio"
+	"jasondrogba/multi-client-cacheTest/master/metrics"
 	"jasondrogba/multi-client-cacheTest/master/readyForEc2"
 	"jasondrogba/multi-client-cacheTest/master/startTest"
 	"jasondrogba/multi-client-cacheTest/master/userMasterInfo"
@@ -145,4 +146,49 @@ func GetResultHandler(c *gin.Context) {
 		"remote":  remote,
 		"readUfs": readUfs,
 	})
+}
+
+func GetMapResultHandler(c *gin.Context) {
+	//remote := []float64{0.1, 0.2, 0.3}
+	//readUfs := []float64{0.1, 0.2, 0.3}
+
+	remote, readUfs := metrics.GetInfo()
+	c.JSON(200, gin.H{
+		"message": "获取结果",
+		"remote":  remote,
+		"readUfs": readUfs,
+	})
+}
+
+func SetPolicyHandler(c *gin.Context) {
+	var workerListInfo userMasterInfo.WorkerInfoList
+	err := c.BindJSON(&workerListInfo)
+	if err != nil {
+		log.Println("JSON err:", err)
+		c.JSON(400, gin.H{"error": "解析JSON数据失败"})
+		return
+	}
+	select {
+	case handleLock.GetPolicyRunning() <- struct{}{}: // 尝试获取互斥锁
+		// 成功获取互斥锁，执行处理函数
+		fmt.Println("后台处理开始")
+		err := startTest.SetPolicy(workerListInfo.Policy)
+
+		if err != nil {
+			c.JSON(501, gin.H{
+				"message": "更新policy失败",
+			})
+			return
+		}
+
+		c.JSON(200, gin.H{
+			"message": "更新policy成功",
+		})
+	default:
+		// 未获取到互斥锁，处理函数正在执行中，直接返回错误响应
+		c.JSON(500, gin.H{
+			"message": "后台处理中，还没有训练结束",
+		})
+	}
+
 }

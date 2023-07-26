@@ -27,5 +27,7 @@ func main() {
 	r.POST("/readAlluxio", masterHandleFunc.ReadAlluxioHandler)
 	r.GET("/startTraining", masterHandleFunc.StartTrainingHandler)
 	r.GET("/getResult", masterHandleFunc.GetResultHandler)
+	r.GET("/getMapResult", masterHandleFunc.GetMapResultHandler)
+	r.GET("/setPolicy", masterHandleFunc.SetPolicyHandler)
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 }
