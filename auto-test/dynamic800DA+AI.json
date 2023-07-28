@@ -1,0 +1,197 @@
+{
+  "message": "获取结果",
+  "result": [
+    {
+      "testId": 0,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 25.87829610425979,
+      "remote": 7.470703125
+    },
+    {
+      "testId": 1,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 109.66662644874305,
+      "remote": 18.798828125
+    },
+    {
+      "testId": 2,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 22.900146581232548,
+      "remote": 6.884765625
+    },
+    {
+      "testId": 3,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 102.29391517024487,
+      "remote": 21.826171875
+    },
+    {
+      "testId": 4,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 25.927429320290685,
+      "remote": 7.8125
+    },
+    {
+      "testId": 5,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 105.71139562688768,
+      "remote": 18.310546875
+    },
+    {
+      "testId": 6,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.072021581232548,
+      "remote": 6.591796875
+    },
+    {
+      "testId": 7,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 106.1021428424865,
+      "remote": 19.970703125
+    },
+    {
+      "testId": 8,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.120849706232548,
+      "remote": 7.03125
+    },
+    {
+      "testId": 9,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 109.22781399916857,
+      "remote": 18.603515625
+    },
+    {
+      "testId": 10,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 26.317962779663503,
+      "remote": 8.203125
+    },
+    {
+      "testId": 11,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 106.4440312338993,
+      "remote": 22.802734375
+    },
+    {
+      "testId": 12,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 25.048584081232548,
+      "remote": 7.51953125
+    },
+    {
+      "testId": 13,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 109.03033479955047,
+      "remote": 16.943359375
+    },
+    {
+      "testId": 14,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.072113097645342,
+      "remote": 6.8359375
+    },
+    {
+      "testId": 15,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 107.76260413508862,
+      "remote": 17.578125
+    },
+    {
+      "testId": 16,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.267425597645342,
+      "remote": 6.884765625
+    },
+    {
+      "testId": 17,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 107.56698626559228,
+      "remote": 17.578125
+    },
+    {
+      "testId": 18,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 25.19473282340914,
+      "remote": 7.080078125
+    },
+    {
+      "testId": 19,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 107.81124919094145,
+      "remote": 21.142578125
+    },
+    {
+      "testId": 20,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 28.17346205934882,
+      "remote": 7.6171875
+    },
+    {
+      "testId": 21,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 114.74514808040112,
+      "remote": 19.04296875
+    },
+    {
+      "testId": 22,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.560302831232548,
+      "remote": 6.8359375
+    },
+    {
+      "testId": 23,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 111.03427159134299,
+      "remote": 20.947265625
+    },
+    {
+      "testId": 24,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.462463536299765,
+      "remote": 7.470703125
+    },
+    {
+      "testId": 25,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 107.90924106165767,
+      "remote": 17.138671875
+    },
+    {
+      "testId": 26,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 26.562438989058137,
+      "remote": 7.6171875
+    },
+    {
+      "testId": 27,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 108.20214871596545,
+      "remote": 22.265625
+    },
+    {
+      "testId": 28,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 24.658050597645342,
+      "remote": 7.71484375
+    },
+    {
+      "testId": 29,
+      "info": "Policy:LRU-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 110.057892087847,
+      "remote": 17.724609375
+    },
+    {
+      "testId": 30,
+      "info": "Policy:LRU-Ratio:80-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 26.611267114058137,
+      "remote": 7.470703125
+    },
+    {
+      "testId": 31,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:0-HotFile:20-TotalFile:100-Count:400",
+      "ufs": 110.20364429522306,
+      "remote": 21.240234375
+    }
+  ]
+}

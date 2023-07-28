@@ -24,7 +24,7 @@ func main() {
 			go sendCMD(masterDir, v)
 			continue
 		}
-		//go sendCMD(workerDir, v)
+		go sendCMD(workerDir, v)
 	}
 	//time.Sleep(time.Second * 1)
 	wg.Wait()

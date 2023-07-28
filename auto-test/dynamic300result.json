@@ -1,0 +1,59 @@
+{
+  "message": "获取结果",
+  "result": [
+    {
+      "testId": 0,
+      "info": "Policy:LRU-Ratio:80-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 9.521453869529068,
+      "remote": 6.787109375
+    },
+    {
+      "testId": 1,
+      "info": "Policy:LRU-Ratio:20-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 43.0172730460763,
+      "remote": 11.81640625
+    },
+    {
+      "testId": 2,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 8.984344494529068,
+      "remote": 6.640625
+    },
+    {
+      "testId": 3,
+      "info": "Policy:REPLICA-Ratio:20-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 38.769256700761616,
+      "remote": 13.330078125
+    },
+    {
+      "testId": 4,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 8.789001489058137,
+      "remote": 6.787109375
+    },
+    {
+      "testId": 5,
+      "info": "Policy:LRU-Ratio:20-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 38.13458259217441,
+      "remote": 11.62109375
+    },
+    {
+      "testId": 6,
+      "info": "Policy:LRU-Ratio:80-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 6.6396484375,
+      "remote": 6.201171875
+    },
+    {
+      "testId": 7,
+      "info": "Policy:LRU-Ratio:20-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 38.47445684764534,
+      "remote": 10.3515625
+    },
+    {
+      "testId": 8,
+      "info": "Policy:REPLICA-Ratio:80-LoadFile:39-HotFile:20-TotalFile:100-Count:150",
+      "ufs": 8.740173364058137,
+      "remote": 7.03125
+    }
+  ]
+}
