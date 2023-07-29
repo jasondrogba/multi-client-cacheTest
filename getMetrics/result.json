@@ -1,0 +1,1 @@
+[{"testId":0,"info":"Policy:LRU-Ratio:90-LoadFile:39-HotFile:20-TotalFile:100-Count:200","ufs":15.966705358587205,"remote":5.908203125},{"testId":1,"info":"Policy:REPLICA-Ratio:90-LoadFile:39-HotFile:20-TotalFile:100-Count:200","ufs":7.421783483587205,"remote":6.15234375}]

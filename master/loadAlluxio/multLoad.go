@@ -23,25 +23,24 @@ func TotalLoad(workerListInfo userMasterInfo.WorkerInfoList) {
 	<-handleLock.GetLoadRunning()
 }
 
-func multiLoad(workerId string, loadFile string) error {
+func multiLoad(workerId string, loadFile string) {
 	instanceMap := readyForEc2.GetInstanceMap()
 	if runtime.GOOS == "linux" {
 		fmt.Println("Detected Linux system")
 		err := sendLoadToWorker(instanceMap["Ec2Cluster-default-workers-"+workerId]+":8888/loadAlluxio", loadFile)
 		if err != nil {
-			return err
+			log.Println("sendLoadToWorker err: ", err)
 		}
 	} else if runtime.GOOS == "darwin" {
 		fmt.Println("Detected macOS system")
 		err := sendLoadToWorker("localhost:8888/loadAlluxio", loadFile)
 		if err != nil {
-			return err
+			log.Println("sendLoadToWorker err: ", err)
 		}
 
 	} else {
 		fmt.Println("Unknown system")
 	}
-	return nil
 }
 
 func sendLoadToWorker(workerIP string, loadFile string) error {
@@ -52,13 +51,21 @@ func sendLoadToWorker(workerIP string, loadFile string) error {
 	if err != nil {
 		log.Println("http.Get err: ", err)
 	}
-	defer loadResp.Body.Close()
+
 	if loadResp.StatusCode != http.StatusOK {
 		log.Print("预热失败，状态码：", loadResp.StatusCode)
 		wgLoad.Done()
+		err := loadResp.Body.Close()
+		if err != nil {
+			log.Println("loadResp.Body.Close err: ", err)
+		}
 		return err
 	}
 	wgLoad.Done()
+	err = loadResp.Body.Close()
+	if err != nil {
+		log.Println("loadResp.Body.Close err: ", err)
+	}
 	return nil
 
 }

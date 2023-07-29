@@ -3,7 +3,6 @@ package loadAlluxio
 import (
 	"fmt"
 	"jasondrogba/multi-client-cacheTest/worker/workerHandleLock"
-	"os"
 	"os/exec"
 	"runtime"
 	"sync"
@@ -38,7 +37,7 @@ func multiLoad(file int) {
 	output, err := runcmd.Output()
 	if err != nil {
 		fmt.Println("Failed to run command:", err)
-		os.Exit(1)
+		//os.Exit(1)
 	}
 	fmt.Print(string(output))
 	wg.Done()
