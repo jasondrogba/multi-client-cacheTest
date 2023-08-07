@@ -35,20 +35,29 @@ func main() {
 	//jsonBytes := StartSetJSON("LRU", "90", "20", "100", "200")
 
 	log.Println("读取20000次，前1w次AI，后1w次DA。全程REPLICA和前REPLICA+后LRU各执行3组。")
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 2; i++ {
 		//读取20000次，前1w次AI，后1w次DA。全程REPLICA
-		switchTest(startUrl, readUrl, "REPLICA", "20", "20000", checkStatusUrl, false)
-		time.Sleep(2 * time.Second)
-		//读取20000次，前1w次AI，后1w次DA。前1w次REPLICA，后1w次LRU
-		dynamicTest(startUrl, readUrl, setPolicyUrl, "REPLICA", "20", checkStatusUrl, "20000", false)
-		time.Sleep(2 * time.Second)
-		//读取20000次，前1w次DA，后1w次AI。全程LRU
 		switchTest(startUrl, readUrl, "LRU", "80", "20000", checkStatusUrl, false)
 		time.Sleep(2 * time.Second)
+		//switchTest(startUrl, readUrl, "REPLICA", "80", "20000", checkStatusUrl, false)
+		//time.Sleep(2 * time.Second)
+		//switchTest(startUrl, readUrl, "LRU", "20", "10", checkStatusUrl, false)
+		//time.Sleep(2 * time.Second)
+		////读取20000次，前1w次AI，后1w次DA。前1w次REPLICA，后1w次LRU
+		//dynamicTest(startUrl, readUrl, setPolicyUrl, "REPLICA", "20", checkStatusUrl, "20000", false)
+		//time.Sleep(2 * time.Second)
+		////读取20000次，前1w次DA，后1w次AI。全程LRU
+		//switchTest(startUrl, readUrl, "LRU", "80", "20000", checkStatusUrl, false)
+		//time.Sleep(2 * time.Second)
+		////读取20000次，前1w次DA，后1w次AI。前1w次LRU，后1w次REPLICA
+		//dynamicTest(startUrl, readUrl, setPolicyUrl, "LRU", "80", checkStatusUrl, "20000", false)
+		//time.Sleep(2 * time.Second)
 		//读取20000次，前1w次DA，后1w次AI。前1w次LRU，后1w次REPLICA
 		dynamicTest(startUrl, readUrl, setPolicyUrl, "LRU", "80", checkStatusUrl, "20000", false)
 		time.Sleep(2 * time.Second)
-
+		//读取20000次，前1w次AI，后1w次DA。前1w次REPLICA，后1w次LRU
+		//dynamicTest(startUrl, readUrl, setPolicyUrl, "REPLICA", "20", checkStatusUrl, "20000", false)
+		//time.Sleep(2 * time.Second)
 	}
 
 	log.Println("读取20000次，前1w次DA，后1w次AI。全程LRU和前LRU+后REPLICA各执行3组。")
